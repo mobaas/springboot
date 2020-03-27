@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mobaas.stfx.dao.mybatis.SysRoleMapper">
+
+    <select id="findListByUsername" resultType="com.mobaas.stfx.entity.SysRole">
+ 		SELECT
+            role.id,
+            role.available,
+            role.description,
+            role.role
+        FROM
+            sys_role role
+        INNER JOIN sys_user_role user_role ON user_role.roleId = role.id
+        INNER JOIN sys_user u ON u.id = user_role.userId
+        WHERE u.username = #{username}
+    </select>
+    <select id="findCount" resultType="java.lang.Integer">
+        SELECT
+        COUNT(id)
+        FROM
+        sys_role
+    </select>
+
+    <select id="findList" resultType="com.mobaas.stfx.entity.SysRole" parameterType="java.lang.Integer" >
+        SELECT
+        role.id,
+        role.available,
+        role.description,
+        role.role
+        FROM
+        sys_role role
+        LIMIT #{offset}, #{limit}
+    </select>
+
+    <select id="selectById" resultType="com.mobaas.stfx.entity.SysRole" parameterType="java.lang.Integer" >
+        select
+            id, role, description, available
+        from sys_role
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <insert id="insert" parameterType="com.mobaas.stfx.entity.SysRole" >
+        insert into sys_role (id, role, description,
+        available)
+        values (#{id,jdbcType=INTEGER}, #{role,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR},
+        #{available,jdbcType=TINYINT})
+        <selectKey keyProperty="id" resultType="java.lang.Integer">
+            select last_insert_id()
+        </selectKey>
+    </insert>
+    <update id="updateByIdSelective" parameterType="com.mobaas.stfx.entity.SysRole" >
+        update sys_role
+        <set >
+            <if test="role != null" >
+                role = #{role,jdbcType=VARCHAR},
+            </if>
+            <if test="description != null" >
+                description = #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="available != null" >
+                available = #{available,jdbcType=TINYINT},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateById" parameterType="com.mobaas.stfx.entity.SysRole" >
+        update sys_role
+        set role = #{role,jdbcType=VARCHAR},
+        description = #{description,jdbcType=VARCHAR},
+        available = #{available,jdbcType=TINYINT}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <delete id="deleteById" parameterType="java.lang.Integer" >
+        delete from sys_role
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+
+    <select id="findPermissionListByRole" resultType="java.lang.Integer">
+        SELECT permissionId
+        FROM sys_role_permission
+        WHERE roleId =#{id}
+    </select>
+    <delete id="delRolePermission" parameterType="java.lang.Integer">
+        DELETE FROM sys_role_permission
+        WHERE roleId = #{roleId}
+        <if test="permissionId != '-1'">
+        AND   permissionId=#{permissionId}
+        </if>
+    </delete>
+    <insert id="addRolePermission" parameterType="java.lang.Integer">
+        insert into sys_role_permission (roleId, permissionId)
+        values (#{roleId,jdbcType=INTEGER}, #{permissionId,jdbcType=INTEGER})
+    </insert>
+
+    <select id="findAll" resultType="com.mobaas.stfx.entity.SysRole">
+        SELECT
+            role.id,
+            role.available,
+            role.description,
+            role.role
+        FROM
+            sys_role role
+    </select>
+</mapper>

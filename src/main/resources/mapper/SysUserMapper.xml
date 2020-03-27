@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mobaas.stfx.dao.mybatis.SysUserMapper">
+
+    <insert id="saveUser" parameterType="com.mobaas.stfx.entity.SysUser" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO sys_user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null and id != ''">
+                id,
+            </if>
+            <if test="username != null and username != ''">
+                username,
+            </if>
+            <if test="password != null and password != ''">
+                password,
+            </if>
+            <if test="salt != null and salt != ''">
+                salt,
+            </if>
+            <if test="type != null">
+                type,
+            </if>
+            <if test="state != null">
+                state,
+            </if>
+        </trim>
+        VALUES
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null and id != ''">
+                #{id},
+            </if>
+            <if test="username != null and username != ''">
+                #{username},
+            </if>
+            <if test="password != null and password != ''">
+                #{password},
+            </if>
+            <if test="salt != null and salt != ''">
+                #{salt},
+            </if>
+            <if test="type != null">
+                #{type},
+            </if>
+            <if test="state != null">
+                #{state},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateUser" parameterType="com.mobaas.stfx.entity.SysUser">
+        UPDATE sys_user
+        <trim prefix="set" suffixOverrides=",">
+            <if test="username != null and username != ''">
+                username = #{username},
+            </if>
+            <if test="password != null and password != ''">
+                password = #{password},
+            </if>
+            <if test="salt != null and salt != ''">
+                salt = #{salt},
+            </if>
+            <if test="type != null">
+                type = #{type},
+            </if>
+            <if test="state != null">
+                state = #{state},
+            </if>
+        </trim>
+        WHERE id = #{id}
+    </update>
+
+    <insert id="saveUserRole">
+        INSERT INTO sys_user_role(userId,roleId) VALUES (#{userId},#{roleId})
+    </insert>
+
+    <insert id="updateUserRole">
+        UPDATE sys_user_role SET roleId = #{roleId} WHERE userId = #{userId}
+    </insert>
+
+   <select id="findById" resultType="com.mobaas.stfx.entity.SysUser">
+        SELECT
+            id,
+            username,
+            `password`,
+            salt,
+            type,
+            state
+        FROM
+            sys_user
+        WHERE id=#{id}
+    </select>
+    
+    <select id="findByUsername" resultType="com.mobaas.stfx.entity.SysUser">
+        SELECT
+            id,
+            username,
+            `password`,
+            salt,
+            type,
+            state
+        FROM
+            sys_user
+        WHERE username=#{username}
+    </select>
+    
+    <select id="findCount" resultType="java.lang.Integer">
+    	SELECT
+    	  COUNT(id)
+    	FROM
+    	  sys_user
+    	<where>
+    		<if test="username != null and username != ''">
+    			instr(username, #{username}) &gt; 0
+    		</if>
+            AND state = 1
+    	</where>  
+    </select>
+    
+    <select id="findList" resultType="com.mobaas.stfx.entity.SysUser">
+    	SELECT
+    	  id,
+            username,
+            `password`,
+            salt,
+            type,
+            state
+    	FROM
+    	  sys_user
+    	<where>
+    		<if test="username != null and username != ''">
+    			instr(username, #{username}) &gt; 0
+    		</if>
+            AND state = 1
+    	</where>  
+    	LIMIT #{offset}, #{limit}
+    </select>
+
+    <select id="findListUser" resultType="com.mobaas.stfx.entity.SysUser">
+        SELECT
+        id,
+        username,
+        `password`,
+        salt,
+        type,
+        state
+        FROM
+        sys_user
+        <where>
+            <if test="t.username != null and t.username != ''">
+                instr(username, #{t.username}) &gt; 0
+            </if>
+            AND state = 1
+        </where>
+        LIMIT #{offest}, #{limit}
+    </select>
+
+
+    <select id="findCountUser" resultType="java.lang.Integer">
+        SELECT
+        COUNT(id)
+        FROM
+        sys_user
+        <where>
+            <if test="username != null and username != ''">
+                instr(username, #{username}) &gt; 0
+            </if>
+            AND state = 1
+        </where>
+    </select>
+
+    <select id="findByIdRole" resultType="com.mobaas.stfx.entity.SysUser">
+        SELECT
+            u.id id,
+            u.username username,
+            u.`password` `password`,
+            u.salt salt,
+            u.type type,
+            u.state state,
+            r.roleId roleId
+        FROM
+        sys_user u
+        LEFT JOIN sys_user_role r on u.id = r.userId
+        WHERE u.id=#{id}
+    </select>
+</mapper>

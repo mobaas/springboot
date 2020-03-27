@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mobaas.stfx.dao.mybatis.SysLogMapper">
+
+    <select id="findCount" resultType="java.lang.Integer">
+        SELECT
+        COUNT(id)
+        FROM
+        sys_log
+    </select>
+
+    <select id="findList" resultType="com.mobaas.stfx.entity.SysLog" parameterType="java.lang.Integer" >
+        SELECT
+        *
+        FROM
+        sys_log
+        ORDER BY id DESC
+        LIMIT #{offset}, #{limit}
+    </select>
+   
+    <insert id="insert" >
+        insert into sys_log (category, username, opName, duration, result, logTime, logIp)
+        values (#{category}, #{username}, #{opName}, #{duration}, #{result}, #{logTime}, #{logIp})
+        <selectKey keyProperty="id" resultType="java.lang.Integer">
+            select last_insert_id()
+        </selectKey>
+    </insert>
+   
+</mapper>
