@@ -5,16 +5,9 @@ package com.mobaas.stfx.entity;
 
 import java.util.Date;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
 /**
  * @author Billy Zhang
  */
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
 public class SysError {
 
 	private int id;
@@ -22,5 +15,37 @@ public class SysError {
 	private String message;
 	private String content;
 	private String cause;
+	
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public Date getTime() {
+		return time;
+	}
+	public void setTime(Date time) {
+		this.time = time;
+	}
+	public String getMessage() {
+		return message;
+	}
+	public void setMessage(String message) {
+		this.message = message;
+	}
+	public String getContent() {
+		return content;
+	}
+	public void setContent(String content) {
+		this.content = content;
+	}
+	public String getCause() {
+		return cause;
+	}
+	public void setCause(String cause) {
+		this.cause = cause;
+	}
+	
 	
 }

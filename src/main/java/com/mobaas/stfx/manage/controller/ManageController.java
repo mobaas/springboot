@@ -14,6 +14,8 @@ import org.apache.shiro.authc.LockedAccountException;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,16 +29,15 @@ import com.mobaas.stfx.aop.OpCategory;
 import com.mobaas.stfx.aop.OperateLog;
 import com.mobaas.stfx.util.CryptoUtil;
 
-import lombok.extern.slf4j.Slf4j;
-
 /**
  * @author Billy Zhang
  */
 @Controller
 @RequestMapping("/manage")
-@Slf4j
 public class ManageController {
-	
+
+    public Logger log = LoggerFactory.getLogger(ManageController.class);
+
 	@Autowired
 	private HttpServletResponse response;
 	

@@ -40,34 +40,16 @@
 		    <groupId>net.mingsoft</groupId>
 		    <artifactId>shiro-freemarker-tags</artifactId>
 		    <version>0.1</version>
-		    <exclusions>
-				<exclusion>
-		            <groupId>org.quartz-scheduler</groupId>
-					<artifactId>quartz</artifactId>
-		        </exclusion>
-			</exclusions>
-		</dependency>
-
-		<!--quartz定时 -->
-		<dependency>
-			<groupId>org.quartz-scheduler</groupId>
-			<artifactId>quartz</artifactId>
 		</dependency>
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<scope>runtime</scope>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
 		</dependency>
 		
 		<!--shiro-->
@@ -76,10 +58,6 @@
 			<artifactId>shiro-all</artifactId>
 			<version>1.4.0</version>
 			<exclusions>
-				<exclusion>
-		            <groupId>org.apache.shiro</groupId>
-		            <artifactId>shiro-quartz</artifactId>
-		        </exclusion>
 				<exclusion>
 				   <groupId>org.apache.shiro</groupId>
             		<artifactId>shiro-hazelcast</artifactId>
@@ -92,7 +70,17 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<scope>test</scope>
+		</dependency>
 
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-redis</artifactId>
+		</dependency>
+		
 	</dependencies>
 
 	<build>

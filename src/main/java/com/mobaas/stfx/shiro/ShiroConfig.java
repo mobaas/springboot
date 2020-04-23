@@ -4,8 +4,6 @@
 package com.mobaas.stfx.shiro;
 
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
-import org.apache.shiro.cache.ehcache.EhCacheManager;
-import org.apache.shiro.codec.Base64;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
@@ -30,8 +28,8 @@ import javax.servlet.Filter;
 @Configuration
 public class ShiroConfig {
 	
-	@Autowired
-	private net.sf.ehcache.CacheManager cacheManager;
+	//@Autowired
+	//private CacheManager cacheManager;
 	
 	@Autowired
 	private SysUserService userService;
@@ -64,7 +62,7 @@ public class ShiroConfig {
 	public SecurityManager securityManager() {
 		DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
 		securityManager.setRealm(authorizingRealm()); // 将Realm注入到SecurityManager中。
-		securityManager.setCacheManager(ehCacheManager()); // 注入缓存对象。
+		//securityManager.setCacheManager(cacheManager); // 注入缓存对象。
 		securityManager.setRememberMeManager(cookieRememberMeManager()); // 注入rememberMeManager;
 		return securityManager;
 	}
@@ -95,13 +93,6 @@ public class ShiroConfig {
 		AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor = new AuthorizationAttributeSourceAdvisor();
 		authorizationAttributeSourceAdvisor.setSecurityManager(securityManager);
 		return authorizationAttributeSourceAdvisor;
-	}
-
-	@Bean
-	public EhCacheManager ehCacheManager() {
-		EhCacheManager ehCacheManager = new EhCacheManager();
-		ehCacheManager.setCacheManager(cacheManager);
-		return ehCacheManager;
 	}
 
 	@Bean

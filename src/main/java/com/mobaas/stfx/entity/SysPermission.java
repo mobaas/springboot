@@ -5,16 +5,9 @@ package com.mobaas.stfx.entity;
 
 import java.io.Serializable;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
 /**
  * @author Billy Zhang
  */
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
 public class SysPermission implements Serializable {
     int id;//主键.
     
@@ -23,4 +16,38 @@ public class SysPermission implements Serializable {
     String url;//资源路径.
     
     String permission; //权限字符串
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
+	public String getPermission() {
+		return permission;
+	}
+
+	public void setPermission(String permission) {
+		this.permission = permission;
+	}
+    
+    
 }

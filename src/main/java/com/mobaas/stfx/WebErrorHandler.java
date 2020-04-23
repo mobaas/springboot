@@ -7,19 +7,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.shiro.authz.UnauthorizedException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import lombok.extern.slf4j.Slf4j;
-
 /**
  * @author: billy zhang
  */
-@Slf4j
 @ControllerAdvice
 public class WebErrorHandler {
-	  
+
+    public Logger log = LoggerFactory.getLogger(WebErrorHandler.class);
+
 	@ExceptionHandler(UnauthorizedException.class)
     public String unauthorizedHandler(
     		HttpServletRequest req, HttpServletResponse resp, Exception ex) {
