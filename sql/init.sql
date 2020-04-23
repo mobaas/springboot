@@ -57,16 +57,3 @@ CREATE TABLE `sys_user_role` (
   `roleId` int(11) NOT NULL,
   PRIMARY KEY (`userId`,`roleId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-CREATE TABLE `taskinfo` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(45) DEFAULT NULL,
-  `jobClazz` varchar(100) DEFAULT NULL,
-  `jobData` varchar(500) DEFAULT NULL,
-  `cronExp` varchar(45) DEFAULT NULL,
-  `modified` datetime DEFAULT NULL,
-  `del` tinyint(4) DEFAULT NULL,
-  `executeCount` int(11) DEFAULT NULL,
-  `lastExecute` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;

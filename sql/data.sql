@@ -27,6 +27,3 @@ insert into sys_role_permission (roleId, permissionId) values
 
 insert into sys_user_role (userId, roleId) values
 	(1, 1);
-
-insert into taskinfo (id, name, jobClazz, jobData, cronExp, modified, del) values
-	(1,'Test Job','com.mobaas.stfx.schedule.NopJob',NULL,'0 0/1 * * * ?','2018-01-19 00:00:00',0);
